@@ -24,6 +24,9 @@ private:
 public:
     XyzToPCD(string xyz, string pcd);
 
+
+    virtual ~XyzToPCD() { }
+
     int
     readPCD ();
 
@@ -31,6 +34,11 @@ public:
     loadCloud (const string &filename, PointCloud<PointXYZ> &cloud);
 
     int convert();
+
+
+    const PointCloud<PointXYZ> &getCloud() const {
+        return cloud;
+    }
 };
 
 #endif //FLOORPLAN_XYZTOPCD_H

@@ -1,5 +1,25 @@
-//
-// Created by jora on 3/14/16.
-//
 
 #include "ReadPCD.h"
+
+ReadPCD::ReadPCD(string fileName): pcdFile(fileName) {
+
+}
+
+PointCloud<pcl::PointXYZ>::Ptr ReadPCD::read() {
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+
+    if (pcl::io::loadPCDFile<pcl::PointXYZ> (pcdFile, *cloud) == -1) //* load the file
+    {
+        PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
+    }
+    std::cout << "Loaded "
+    << cloud->width * cloud->height
+    << " data points from test_pcd.pcd with the following fields: "
+    << std::endl;
+    for (size_t i = 0; i < cloud->points.size (); ++i)
+        std::cout << "    " << cloud->points[i].x
+        << " "    << cloud->points[i].y
+        << " "    << cloud->points[i].z << std::endl;
+
+    return cloud;
+}
